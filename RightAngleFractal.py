@@ -1,6 +1,4 @@
 import matplotlib.pyplot as plt
-import numpy as np
-
 
 class Segment:
     """
@@ -35,25 +33,38 @@ class Segment:
             if self.horizontal:
                 # ul is the length of one the smaller lines that is being created.
                 ul = (x2-x1) / 4
-                seg1 = Segment( [[x1,        x1 + ul],   [y1,      y1]] )
-                seg2 = Segment( [[x1 + ul,   x1 + ul],   [y1,      y1 + ul]] )
-                seg3 = Segment( [[x1 + ul,   x1 + 2*ul], [y1 + ul, y1 + ul]] )
-                seg4 = Segment( [[x1 + 2*ul, x1 + 2*ul], [y1 + ul, y1]] )
-                seg5 = Segment( [[x1 + 2*ul, x1 + 2*ul], [y1,      y1 - ul]])
-                seg6 = Segment( [[x1 + 2*ul, x2 - ul],   [y1 - ul, y2 - ul]] )
-                seg7 = Segment( [[x2 - ul,   x2 - ul],   [y2 - ul, y2]] )
-                seg8 = Segment( [[x2 - ul,   x2],        [y2,      y2]] )
+                x1_ul = x1 + ul
+                x2__ul = x2 - ul
+                x1_2ul = x1 + ul + ul
+                y1_ul = y1 + ul
+                y1__ul = y1 - ul
+                y2__ul = y2 - ul
+                seg1 = Segment( [[x1,     x1_ul],  [y1,     y1]] )
+                seg2 = Segment( [[x1_ul,  x1_ul],  [y1,     y1_ul]] )
+                seg3 = Segment( [[x1_ul,  x1_2ul], [y1_ul,  y1_ul]] )
+                seg4 = Segment( [[x1_2ul, x1_2ul], [y1_ul,  y1]] )
+                seg5 = Segment( [[x1_2ul, x1_2ul], [y1,     y1__ul]])
+                seg6 = Segment( [[x1_2ul, x2__ul], [y1__ul, y2__ul]] )
+                seg7 = Segment( [[x2__ul, x2__ul], [y2__ul, y2]] )
+                seg8 = Segment( [[x2__ul, x2],     [y2,     y2]] )
                 
             else:
                 ul = (y2-y1) / 4
-                seg1 = Segment( [[x1,      x1],      [y1,        y1 + ul]] )
-                seg2 = Segment( [[x1,      x1 - ul], [y1 + ul,   y1 + ul]] )
-                seg3 = Segment( [[x1 - ul, x1 - ul], [y1 + ul,   y1 + 2*ul]] )
-                seg4 = Segment( [[x1 - ul, x1     ], [y1 + 2*ul, y1 + 2*ul]] )
-                seg5 = Segment( [[x1,      x1 + ul], [y1 + 2*ul, y1 + 2*ul]] )
-                seg6 = Segment( [[x1 + ul, x1 + ul], [y1 + 2*ul, y2 - ul]] )
-                seg7 = Segment( [[x2 + ul, x2],      [y2 - ul,   y2 - ul]] )
-                seg8 = Segment( [[x2,      x2],      [y2 - ul,   y2]] )
+                x1_ul = x1 + ul
+                x2_ul = x2 + ul
+                x1__ul = x1 - ul
+                y1_ul = y1 + ul
+                y1__ul = y1 - ul
+                y1_2ul = y1 + ul + ul
+                y2__ul = y2 - ul
+                seg1 = Segment( [[x1,     x1],     [y1,     y1_ul]] )
+                seg2 = Segment( [[x1,     x1__ul], [y1_ul, y1_ul]] )
+                seg3 = Segment( [[x1__ul, x1__ul], [y1_ul, y1_2ul]] )
+                seg4 = Segment( [[x1__ul, x1],     [y1_2ul, y1_2ul]] )
+                seg5 = Segment( [[x1,     x1_ul],  [y1_2ul, y1_2ul]] )
+                seg6 = Segment( [[x1_ul,  x1_ul],  [y1_2ul, y2__ul]] )
+                seg7 = Segment( [[x2_ul,  x2],     [y2__ul, y2__ul]] )
+                seg8 = Segment( [[x2,     x2],     [y2__ul, y2]] )
 
             self.segments = [seg1, seg2, seg3, seg4, seg5, seg6, seg7, seg8]
             self.straight = False
@@ -82,6 +93,6 @@ def make_fractal(first_line, iterations):
     return main_segment
 
 first_line = [[0, 4], [1, 1]]
-main_segment = make_fractal(first_line, 3)
+main_segment = make_fractal(first_line, 4)
 plot_fractal(main_segment)
 plt.show()
